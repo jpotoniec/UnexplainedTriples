@@ -1,0 +1,20 @@
+# templates/prp-fp.sparql
+# prp-fp
+# T(?p, rdf:type, owl:FunctionalProperty)
+# T(?x, ?p, ?y1)
+# T(?x, ?p, ?y2)
+# =======
+# T(?y1, owl:sameAs, ?y2)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?y1 AS ?ts) (owl:sameAs AS ?tp) (?y2 AS ?to)
+WHERE {
+	 ?p rdf:type owl:FunctionalProperty .
+	 ?x ?p ?y1 .
+	 ?x ?p ?y2 .
+
+	 ?y1 owl:sameAs ?y2 .
+	 filter(?y1!=?y2)
+}

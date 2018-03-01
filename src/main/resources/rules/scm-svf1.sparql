@@ -1,0 +1,24 @@
+# templates/scm-svf1.sparql
+# scm-svf1
+# T(?c1, owl:someValuesFrom, ?y1)
+# T(?c1, owl:onProperty, ?p)
+# T(?c2, owl:someValuesFrom, ?y2)
+# T(?c2, owl:onProperty, ?p)
+# T(?y1, rdfs:subClassOf, ?y2)
+# =======
+# T(?c1, rdfs:subClassOf, ?c2)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?c1 AS ?ts) (rdfs:subClassOf AS ?tp) (?c2 AS ?to)
+WHERE {
+	 ?c1 owl:someValuesFrom ?y1 .
+	 ?c1 owl:onProperty ?p .
+	 ?c2 owl:someValuesFrom ?y2 .
+	 ?c2 owl:onProperty ?p .
+	 ?y1 rdfs:subClassOf ?y2 .
+
+	 ?c1 rdfs:subClassOf ?c2 .
+	 filter(?c1!=?y2 || ?c2!=?y2)
+}

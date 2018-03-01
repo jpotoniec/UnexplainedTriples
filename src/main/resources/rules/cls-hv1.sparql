@@ -1,0 +1,20 @@
+# templates/cls-hv1.sparql
+# cls-hv1
+# T(?x, owl:hasValue, ?y)
+# T(?x, owl:onProperty, ?p)
+# T(?u, rdf:type, ?x)
+#=======
+# T(?u, ?p, ?y)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?u AS ?ts) (?p AS ?tp) (?y AS ?to)
+WHERE {
+	 ?x owl:hasValue ?y .
+	 ?x owl:onProperty ?p .
+	 ?u rdf:type ?x .
+
+	 ?u ?p ?y .
+	 FILTER(?p!=rdf:type || ?x!=?y)
+}

@@ -1,0 +1,49 @@
+# templates/dt-type1.sparql
+# dt-type1
+# 
+# =======
+# T(dt, rdf:type, rdfs:Datatype)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?dt (rdf:type as ?tp) (rdfs:Datatype as ?to)
+where
+{
+?dt a rdfs:Datatype .
+values ?dt {
+rdf:PlainLiteral
+rdf:XMLLiteral
+rdfs:Literal
+xsd:decimal
+xsd:integer
+xsd:nonNegativeInteger
+xsd:nonPositiveInteger
+xsd:positiveInteger
+xsd:negativeInteger
+xsd:long
+xsd:int
+xsd:short
+xsd:byte
+xsd:unsignedLong
+xsd:unsignedInt
+xsd:unsignedShort
+xsd:unsignedByte
+xsd:float
+xsd:double
+xsd:string
+xsd:normalizedString
+xsd:token
+xsd:language
+xsd:Name
+xsd:NCName
+xsd:NMTOKEN
+xsd:boolean
+xsd:hexBinary
+xsd:base64Binary
+xsd:anyURI
+xsd:dateTime
+xsd:dateTimeStamp
+}
+}

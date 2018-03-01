@@ -1,0 +1,21 @@
+# templates/scm-uni-1.sparql
+# scm-uni
+# T(?c, owl:unionOf, ?x)
+# LIST[?x, ?c1, ..., ?cn]
+# =======
+# T(?c1, rdfs:subClassOf, ?c)
+# T(?c2, rdfs:subClassOf, ?c)
+# ...
+# T(?cn, rdfs:subClassOf, ?c)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?cn (rdfs:subClassOf as ?tp) ?c
+where
+{
+    ?c owl:unionOf/rdf:rest*/rdf:first ?cn.
+
+    ?cn rdfs:subClassOf ?c.
+}

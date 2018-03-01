@@ -1,0 +1,51 @@
+# templates/prp-spo2.sparql
+# prp-spo2
+# T(?p, owl:propertyChainAxiom, ?x)
+# LIST[?x, ?p1, ..., ?pn]
+# T(?u1, ?p1, ?u2)
+# T(?u2, ?p2, ?u3)
+# ...
+# T(?un, ?pn, ?un+1)
+# =======
+# T(?u1, ?p, ?un+1)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?u1 ?p ?un1
+where
+{
+    {
+        {
+            ?p owl:propertyChainAxiom (?p1 ?p2).
+            ?u1 ?p1 _:u1_2.
+            _:u1_2 ?p2 ?un1 .
+        }
+        UNION
+        {
+            ?p owl:propertyChainAxiom (?p1 ?p2 ?p3).
+            ?u1 ?p1 _:u2_2.
+            _:u2_2 ?p2 _:u2_3.
+            _:u2_3 ?p3 ?un1 .
+        }
+        UNION
+        {
+            ?p owl:propertyChainAxiom (?p1 ?p2 ?p3 ?p4).
+            ?u1 ?p1 _:u3_2.
+            _:u3_2 ?p2 _:u3_3.
+            _:u3_3 ?p3 _:u3_4.
+            _:u3_4 ?p4 ?un1 .
+        }
+        UNION
+        {
+            ?p owl:propertyChainAxiom (?p1 ?p2 ?p3 ?p4 ?p5).
+            ?u1 ?p1 _:u4_2.
+            _:u4_2 ?p2 _:u4_3.
+            _:u4_3 ?p3 _:u4_4.
+            _:u4_4 ?p4 _:u4_5.
+            _:u4_5 ?p5 ?un1 .
+        }
+    }
+    ?u1 ?p ?un1 .
+}

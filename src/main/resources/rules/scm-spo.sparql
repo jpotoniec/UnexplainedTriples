@@ -1,0 +1,18 @@
+# templates/scm-spo.sparql
+# scm-spo
+# T(?p1, rdfs:subPropertyOf, ?p2)
+# T(?p2, rdfs:subPropertyOf, ?p3)
+# =======
+# T(?p1, rdfs:subPropertyOf, ?p3)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?p1 AS ?ts) (rdfs:subPropertyOf AS ?tp) (?p3 AS ?to)
+WHERE {
+	 ?p1 rdfs:subPropertyOf ?p2 .
+	 ?p2 rdfs:subPropertyOf ?p3 .
+
+	 ?p1 rdfs:subPropertyOf ?p3 .
+	 filter(?p1!=?p2 && ?p2!=?p3 && ?p1!=?p3)
+}

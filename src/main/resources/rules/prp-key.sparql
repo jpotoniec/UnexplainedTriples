@@ -1,0 +1,50 @@
+# templates/prp-key.sparql
+# prp-key
+# T(?c, owl:hasKey, ?u)
+# LIST[?u, ?p1, ..., ?pn]
+# T(?x, rdf:type, ?c)
+# T(?x, ?p1, ?z1)
+# ...
+# T(?x, ?pn, ?zn)
+# T(?y, rdf:type, ?c)
+# T(?y, ?p1, ?z1)
+# ...
+# T(?y, ?pn, ?zn)
+# =======
+# T(?x, owl:sameAs, ?y)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+
+select ?x (owl:sameAs as ?tp) ?y
+where
+{
+    ?x owl:sameAs ?y.
+    {
+        # ?m is the number of properties ?pn in the key ?u such that triples (?x,?pn,?v) and (?y,?pn,?v) are present for some ?v
+        select ?c ?x ?y (count(?pn) as ?m) ?n
+        where
+        {
+            ?c owl:hasKey ?u.
+            ?u rdf:rest*/rdf:first ?pn.
+            ?x a ?c.
+            ?y a ?c.
+            ?x ?pn ?v.
+            ?y ?pn ?v.
+            {
+                # ?n is the number of properties in the key for the class ?c
+                select ?c (count(?pn) as ?n)
+                where
+                {
+                    ?c owl:hasKey ?u.
+                    ?u rdf:rest*/rdf:first ?pn.
+                }
+                group by ?c
+            }
+        }
+        group by ?c ?x ?y ?n
+    }
+    filter(?m=?n)
+}

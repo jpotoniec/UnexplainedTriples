@@ -1,0 +1,21 @@
+# templates/scm-int-1.sparql
+# scm-int
+# T(?c, owl:intersectionOf, ?x)
+# LIST[?x, ?c1, ..., ?cn]
+# =======
+# T(?c, rdfs:subClassOf, ?c1)
+# T(?c, rdfs:subClassOf, ?c2)
+# ...
+# T(?c, rdfs:subClassOf, ?cn)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?c (rdfs:subClassOf as ?tp) ?cn
+where
+{
+    ?c owl:intersectionOf/rdf:rest*/rdf:first ?cn .
+
+    ?c rdfs:subClassOf ?cn .
+}

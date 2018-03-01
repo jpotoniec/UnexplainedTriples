@@ -1,0 +1,18 @@
+# templates/prp-eqp2.sparql
+# prp-eqp2
+# T(?p1, owl:equivalentProperty, ?p2)
+# T(?x, ?p2, ?y)
+# =======
+# T(?x, ?p1, ?y)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?x AS ?ts) (?p1 AS ?tp) (?y AS ?to)
+WHERE {
+	 ?p1 owl:equivalentProperty ?p2 .
+	 ?x ?p2 ?y .
+
+	 ?x ?p1 ?y .
+	 filter(?p!=?p2)
+}

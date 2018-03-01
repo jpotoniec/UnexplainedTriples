@@ -1,0 +1,30 @@
+# templates/cls-maxqc3.sparql
+# cls-maxqc3
+# T(?x, owl:maxQualifiedCardinality, "1"^^xsd:nonNegativeInteger)
+# T(?x, owl:onProperty, ?p)
+# T(?x, owl:onClass, ?c)
+# T(?u, rdf:type, ?x)
+# T(?u, ?p, ?y1)
+# T(?y1, rdf:type, ?c)
+# T(?u, ?p, ?y2)
+# T(?y2, rdf:type, ?c)
+#=======
+# T(?y1, owl:sameAs, ?y2)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?y1 AS ?ts) (owl:sameAs AS ?tp) (?y2 AS ?to)
+WHERE {
+	 ?x owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger .
+	 ?x owl:onProperty ?p .
+	 ?x owl:onClass ?c .
+	 ?u rdf:type ?x .
+	 ?u ?p ?y1 .
+	 ?y1 rdf:type ?c .
+	 ?u ?p ?y2 .
+	 ?y2 rdf:type ?c .
+
+	 ?y1 owl:sameAs ?y2 .
+	 FILTER(?y1!=?y2)
+}

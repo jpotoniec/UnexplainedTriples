@@ -1,0 +1,18 @@
+# templates/prp-inv1.sparql
+# prp-inv1
+# T(?p1, owl:inverseOf, ?p2)
+# T(?x, ?p1, ?y)
+# =======
+# T(?y, ?p2, ?x)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?y AS ?ts) (?p2 AS ?tp) (?x AS ?to)
+WHERE {
+	 ?p1 owl:inverseOf ?p2 .
+	 ?x ?p1 ?y .
+
+	 ?y ?p2 ?x .
+	 filter(?x!=?y)
+}

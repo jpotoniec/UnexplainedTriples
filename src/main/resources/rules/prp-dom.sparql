@@ -1,0 +1,18 @@
+# templates/prp-dom.sparql
+# prp-dom
+# T(?p, rdfs:domain, ?c)
+# T(?x, ?p, ?y)
+# =======
+# T(?x, rdf:type, ?c)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?x AS ?ts) (rdf:type AS ?tp) (?c AS ?to)
+WHERE {
+	 ?p rdfs:domain ?c .
+	 ?x ?p ?y .
+
+	 ?x rdf:type ?c .
+	 filter(?y!=?c || ?p!=rdf:type)
+}

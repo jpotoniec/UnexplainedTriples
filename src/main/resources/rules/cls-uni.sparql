@@ -1,0 +1,20 @@
+# templates/cls-uni.sparql
+# cls-uni
+# T(?c, owl:unionOf, ?x)
+# LIST[?x, ?c1, ..., ?cn]
+# T(?y, rdf:type, ?ci)
+# =======
+# T(?y, rdf:type, ?c)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+select ?y (rdf:type as ?tp) ?c
+where
+{
+    ?c owl:unionOf/rdf:rest*/rdf:first ?ci.
+    ?y rdf:type ?ci.
+
+    ?y rdf:type ?c.
+    filter(?c!=?ci)
+}

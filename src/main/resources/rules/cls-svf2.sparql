@@ -1,0 +1,20 @@
+# templates/cls-svf2.sparql
+# cls-svf2
+# T(?x, owl:someValuesFrom, owl:Thing)
+# T(?x, owl:onProperty, ?p)
+# T(?u, ?p, ?v)
+# =======
+# T(?u, rdf:type, ?x)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?u AS ?ts) (rdf:type AS ?tp) (?x AS ?to)
+WHERE {
+	 ?x owl:someValuesFrom owl:Thing .
+	 ?x owl:onProperty ?p .
+	 ?u ?p ?v .
+
+	 ?u rdf:type ?x .
+	 filter(?v!=?x)
+}

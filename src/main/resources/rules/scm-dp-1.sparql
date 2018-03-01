@@ -1,0 +1,16 @@
+# templates/scm-dp-1.sparql
+# scm-dp
+# T(?p, rdf:type, owl:DatatypeProperty)
+# =======
+# T(?p, rdfs:subPropertyOf, ?p)
+# T(?p, owl:equivalentProperty, ?p)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?p AS ?ts) (rdfs:subPropertyOf AS ?tp) (?p AS ?to)
+WHERE {
+	 ?p rdf:type owl:DatatypeProperty .
+
+	 ?p rdfs:subPropertyOf ?p .
+}

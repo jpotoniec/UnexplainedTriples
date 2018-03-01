@@ -1,0 +1,22 @@
+# templates/cls-avf.sparql
+# cls-avf
+# T(?x, owl:allValuesFrom, ?y)
+# T(?x, owl:onProperty, ?p)
+# T(?u, rdf:type, ?x)
+# T(?u, ?p, ?v)
+#=======
+# T(?v, rdf:type, ?y)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?v AS ?ts) (rdf:type AS ?tp) (?y AS ?to)
+WHERE {
+	 ?x owl:allValuesFrom ?y .
+	 ?x owl:onProperty ?p .
+	 ?u rdf:type ?x .
+	 ?u ?p ?v .
+
+	 ?v rdf:type ?y .
+	 FILTER(?u!=?v || ?x!=?y)
+}

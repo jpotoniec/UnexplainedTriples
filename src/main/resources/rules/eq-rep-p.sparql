@@ -1,0 +1,19 @@
+# templates/eq-rep-p.sparql
+# eq-rep-p
+# T(?p, owl:sameAs, ?p')
+# T(?s, ?p, ?o)
+# =======
+# T(?s, ?p', ?o)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+SELECT (?s AS ?ts) (?p_prim AS ?tp) (?o AS ?to)
+WHERE {
+	 ?p owl:sameAs ?p_prim .
+	 ?s ?p ?o .
+
+	 ?s ?p_prim ?o .
+
+	 filter(?p!=?p_prim)
+}

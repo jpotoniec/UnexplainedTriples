@@ -1,0 +1,27 @@
+# templates/cls-int2-1.sparql
+# cls-int2
+# T(?c, owl:intersectionOf, ?x)
+# LIST[?x, ?c1, ..., ?cn]
+# T(?y, rdf:type, ?c)
+#=======
+# T(?y, rdf:type, ?c1)
+# T(?y, rdf:type, ?c2)
+# ...
+# T(?y, rdf:type, ?cn)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?y (rdf:type as ?tp) ?cn
+where
+{
+        ?y a ?c .
+        ?y a ?cn .
+        ?c owl:intersectionOf ?x .
+        ?x rdf:rest*/rdf:first ?cn.
+}

@@ -1,0 +1,20 @@
+# templates/prp-ap.sparql
+# prp-ap
+# 
+# =======
+# T(ap, rdf:type, owl:AnnotationProperty)
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+select ?ap (rdf:type as ?tp) (owl:AnnotationProperty as ?to)
+where
+{
+?ap a owl:AnnotationProperty .
+values ?ap {
+# https://www.w3.org/TR/owl2-syntax/#Ontology_Annotations sec. 5.5
+rdfs:label rdfs:comment rdfs:seeAlso rdfs:isDefinedBy owl:deprecated owl:versionInfo
+owl:priorVersion owl:backwardCompatibleWith owl:incompatibleWith
+}
+}

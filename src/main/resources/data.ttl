@@ -1,0 +1,80 @@
+@prefix : <http://example.com/foo#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Zwierze a owl:Class .
+:Pies a owl:Class .
+:Pies rdfs:subClassOf :Zwierze.
+:Czlowiek a owl:Class .
+:Papuga a owl:Class .
+
+:maZwierze a owl:ObjectProperty .
+:maZwierze rdfs:domain :Czlowiek .
+:maZwierze rdfs:range :Zwierze .
+
+:maPsa a owl:ObjectProperty .
+:maPsa rdfs:subPropertyOf :maZwierze.
+:maPsa rdfs:range :Pies .
+
+:ala a owl:NamedIndividual .
+:burek a owl:NamedIndividual .
+
+:ala :maPsa :burek .
+
+:burek a :Pies.
+:burek a :Zwierze.
+:ala a :Czlowiek.
+
+:bur owl:sameAs :burek.
+
+:DoubleChimera owl:intersectionOf (:Pies :Papuga);
+               a owl:Class .
+:TripleChimera owl:intersectionOf (:Pies :Czlowiek :Papuga);
+                a owl:Class .
+:reksio a :Pies,:Czlowiek,:Papuga.
+
+:p1 a owl:ObjectProperty.
+:p2 a owl:ObjectProperty.
+:p3 a owl:ObjectProperty.
+:p4 a owl:ObjectProperty.
+:p5 a owl:ObjectProperty.
+
+:c1 a owl:Class.
+:c2 a owl:Class.
+
+:c1 owl:hasKey (:p1 :p2 :p3 :p4 :p5).
+:c2 owl:hasKey (:p1 :p3 :p5).
+
+:x1 a :c1.
+:x1 :p1 :q1.
+:x1 :p2 :q2.
+:x1 :p3 :q3.
+:x1 :p4 :q4.
+:x1 :p5 :q5.
+
+:y1 a :c1.
+:y1 :p1 :q1.
+:y1 :p2 :q2.
+:y1 :p3 :q3.
+:y1 :p4 :q4.
+:y1 :p5 :q5.
+
+:x2 a :c2.
+:x2 :p1 :q1.
+:x2 :p2 :q2.
+:x2 :p3 :q3.
+:x2 :p4 :q4.
+:x2 :p5 :q5.
+
+:y2a a :c2.
+:y2a :p1 :q1.
+:y2a :p2 :q2.
+:y2a :p3 :q3.
+:y2a :p4 :q4.
+:y2a :p5 :q5.
+
+:y2b a :c2.
+:y2b :p1 :q1.
+:y2b :p5 :q5.
